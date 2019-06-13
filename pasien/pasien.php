@@ -326,7 +326,7 @@
          <div class="modal-body" id="detail-wali">
          </div>
          <div class="modal-footer">
-            <button id="" class="btn btn-default" type="button" name="hapus-wali-button">Hapus</button>
+            <!-- <button id="" class="btn btn-default" type="button" name="hapus-wali-button">Hapus</button> -->
             <button class="btn btn-default" type="button" data-dismiss="modal">Tutup</button>
          </div>
        </div>
@@ -406,7 +406,7 @@ $(document).ready(function(){
                     data: {kodeWali:kodeWali},
                     success:function(data){
                         $("#"+kodeWali).remove();
-                        window.location = 'hapus-wali.php';
+                        window.location.reload(true);
                     }
                 });
             }
