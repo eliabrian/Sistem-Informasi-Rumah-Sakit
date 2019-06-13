@@ -49,12 +49,12 @@
                                     &nbsp;Pasien
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="../wali/wali.php" class="nav-link">
                                     <i class="fas fa-user-shield mr-1"></i>
                                     Wali
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </nav>
