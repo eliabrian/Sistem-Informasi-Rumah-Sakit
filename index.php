@@ -89,7 +89,7 @@
                             <div class="layer mb-2 w-100 text-center border-bottom"><h2 class="h6" style="color:#777">Wali</h2></div>
                             <div class="layer w-100 text-center"><h1><span>
                                 <?php 
-                                    $sql = "SELECT COUNT(*) AS 'count' FROM pasien";
+                                    $sql = "SELECT COUNT(*) AS 'count' FROM wali";
                                     $result = mysqli_query($conn, $sql);
                                     $row = mysqli_fetch_assoc($result);
                                     echo $row['count'];
@@ -129,6 +129,48 @@
 
                     $dataDay = array($rowSunday["jumlah"], $rowMonday["jumlah"], $rowTuesday["jumlah"], $rowWednesday["jumlah"], $rowThursday["jumlah"], $rowFriday["jumlah"], $rowSaturday["jumlah"]);
 
+                    $sqlJan = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'January' AND flag_active = 'y'";
+                    $sqlFeb = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'February' AND flag_active = 'y'";
+                    $sqlMar = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'March' AND flag_active = 'y'";
+                    $sqlApr = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'April' AND flag_active = 'y'";
+                    $sqlMay = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'May' AND flag_active = 'y'";
+                    $sqlJun = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'June' AND flag_active = 'y'";
+                    $sqlJul = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'July' AND flag_active = 'y'";
+                    $sqlAug = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'August' AND flag_active = 'y'";
+                    $sqlSept = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'September' AND flag_active = 'y'";
+                    $sqlOct = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'October' AND flag_active = 'y'";
+                    $sqlNov = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'November' AND flag_active = 'y'";
+                    $sqlDes = "SELECT COUNT(*) jumlah FROM pasien WHERE MONTHNAME(created_at) = 'December' AND flag_active = 'y'";
+                    
+                    $resultJan = mysqli_query($conn, $sqlJan);
+                    $resultFeb = mysqli_query($conn, $sqlFeb);
+                    $resultMar = mysqli_query($conn, $sqlMar);
+                    $resultApr = mysqli_query($conn, $sqlApr);
+                    $resultMay = mysqli_query($conn, $sqlMay);
+                    $resultJun = mysqli_query($conn, $sqlJun);
+                    $resultJul = mysqli_query($conn, $sqlJul);
+                    $resultAug = mysqli_query($conn, $sqlAug);
+                    $resultSept = mysqli_query($conn,$sqlSept);
+                    $resultOct = mysqli_query($conn, $sqlOct);
+                    $resultNov = mysqli_query($conn, $sqlNov);
+                    $resultDes = mysqli_query($conn, $sqlDes);
+
+                    $rowJan = mysqli_fetch_assoc($resultJan);
+                    $rowFeb = mysqli_fetch_assoc($resultFeb);
+                    $rowMar = mysqli_fetch_assoc($resultMar);
+                    $rowApr = mysqli_fetch_assoc($resultApr);
+                    $rowMay = mysqli_fetch_assoc($resultMay);
+                    $rowJun = mysqli_fetch_assoc($resultJun);
+                    $rowJul = mysqli_fetch_assoc($resultJul);
+                    $rowAug = mysqli_fetch_assoc($resultAug);
+                    $rowSept = mysqli_fetch_assoc($resultSept);
+                    $rowOct = mysqli_fetch_assoc($resultOct);
+                    $rowNov = mysqli_fetch_assoc($resultNov);
+                    $rowDes = mysqli_fetch_assoc($resultDes);
+
+                    $dataMonth = array($rowJan["jumlah"], $rowFeb["jumlah"], $rowMar["jumlah"], $rowApr["jumlah"], $rowMay["jumlah"], $rowJun["jumlah"], $rowJul["jumlah"], $rowAug["jumlah"], $rowSept["jumlah"], $rowOct["jumlah"], $rowNov["jumlah"], $rowDes["jumlah"]);
+
+
                 ?>
                 <!--TODO: GANTI CHART KE CHART.JS-->
                 
@@ -139,14 +181,13 @@
                     let displayChart = new Chart(chartHari, {
                         type:'line',
                         data:{
-                            labels:['Minggu', 'Senin', 'Selasa','Rabu','Kamis','Jumat','Sabtu'],
+                            labels:['Januari', 'Februari', 'Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],
                             datasets:[{
                                 label:'Pasien',
-                                data:<?php echo json_encode($dataDay, JSON_NUMERIC_CHECK);?>,
+                                data:<?php echo json_encode($dataMonth, JSON_NUMERIC_CHECK);?>,
                                 borderColor:['#4FA4F3'],
                                 backgroundColor:['#4FA4F3'],
-                                fill:false,
-                                lineTension:0
+                                fill:false
                             }],
                             
                         },
@@ -154,7 +195,7 @@
                             responsive:true,
                             title:{
                                 display:true,
-                                text:'Jumlah Pasien Per Hari'
+                                text:'Jumlah Pasien Tahun 2019'
                             },
                             legend:{
                                 position:'bottom'
@@ -172,7 +213,7 @@
                                     display: true,
                                     scaleLabel: {
                                         display: true,
-                                        labelString: 'Hari'
+                                        labelString: 'Bulan'
                                     }
                                 }],
                                 yAxes:[{

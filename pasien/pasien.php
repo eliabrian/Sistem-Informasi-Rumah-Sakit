@@ -326,6 +326,7 @@
          <div class="modal-body" id="detail-wali">
          </div>
          <div class="modal-footer">
+            <button id="" class="btn btn-default" type="button" name="hapus-wali-button">Hapus</button>
             <button class="btn btn-default" type="button" data-dismiss="modal">Tutup</button>
          </div>
        </div>
@@ -351,6 +352,26 @@
     </div>
 </div>
 
+<div id="deleteWaliModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+       <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title">Peringatan!</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+         </div>
+         <div class="modal-body" id="detail-pasien">
+            <h5>Apakah anda yakin ingin menghapus data ini?</h5>
+            <p class="font-weight-light text-muted">*Data yang telah dihapus hanya dapat dikembalikan melalui basis data.</p>
+         </div>
+         <div class="modal-footer">
+            <button class="btn btn-dark" type="button" data-dismiss="modal">Batal</button>
+            <button id="hapusWaliButton" class="btn btn-light" type="button" data-dismiss="modal">Hapus</button>
+         </div>
+       </div>
+    </div>
+</div>
+
+
 <script>
 $(document).ready(function(){
     $('.view-data-pasien').click(function(){
@@ -372,6 +393,24 @@ $(document).ready(function(){
     $('.view-data-wali').click(function(){
         let kodeWali = $(this).attr("id");
         console.log(kodeWali);
+        $('button[name="hapus-wali-button"]').prop('id', kodeWali);
+        $('button[name="hapus-wali-button"]').click(function(){
+            let kodeWali = $(this).attr("id");
+            console.log(kodeWali);
+            $('#deleteWaliModal').modal("show");
+            document.getElementById("hapusWaliButton").onclick = function(){
+                console.log(kodeWali);
+                $.ajax({
+                    url:'hapus-wali.php',
+                    method:'get',
+                    data: {kodeWali:kodeWali},
+                    success:function(data){
+                        $("#"+kodeWali).remove();
+                        window.location = 'hapus-wali.php';
+                    }
+                });
+            }
+        });
         $.ajax({
             url:'select-wali.php',
             method:'post',
@@ -383,6 +422,7 @@ $(document).ready(function(){
         });
     });
 });
+
 
 $(document).ready(function(){
     $('.alert-delete').click(function(){
