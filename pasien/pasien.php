@@ -394,23 +394,6 @@ $(document).ready(function(){
         let kodeWali = $(this).attr("id");
         console.log(kodeWali);
         $('button[name="hapus-wali-button"]').prop('id', kodeWali);
-        $('button[name="hapus-wali-button"]').click(function(){
-            let kodeWali = $(this).attr("id");
-            console.log(kodeWali);
-            $('#deleteWaliModal').modal("show");
-            document.getElementById("hapusWaliButton").onclick = function(){
-                console.log(kodeWali);
-                $.ajax({
-                    url:'hapus-wali.php',
-                    method:'get',
-                    data: {kodeWali:kodeWali},
-                    success:function(data){
-                        $("#"+kodeWali).remove();
-                        window.location.reload(true);
-                    }
-                });
-            }
-        });
         $.ajax({
             url:'select-wali.php',
             method:'post',
@@ -421,6 +404,30 @@ $(document).ready(function(){
             }
         });
     });
+});
+
+$(document).ready(function(){
+    $('button[name="hapus-wali-button"]').click(function(){
+            let kode = $(this).attr("id");
+            console.log(kode);
+            $('#deleteWaliModal').modal("show");
+            document.getElementById("hapusWaliButton").onclick = function(){
+                console.log(kode);
+                $.ajax({
+                    url:'hapus-wali.php',
+                    method:'get',
+                    data: {kodeWali:kode},
+                    success:function(response){
+                        if(response == 1){
+                            $("#"+kode).remove();
+                            window.location.reload(true);
+                        }else{
+                            alert('Invalid');
+                        }
+                    }
+                });
+            }
+        });
 });
 
 
